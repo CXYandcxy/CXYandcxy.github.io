@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>备忘录</title>
+<meta charset="utf-8" />
+<style>
+html {
+  min-height: 100%;
+}
+
+body {
+  margin: 20px;
+  color: #435757;
+  background: -webkit-linear-gradient(110deg, #d0b782 20%, #a0cecf 80%);
+  background: linear-gradient(-20deg, #d0b782 20%, #a0cecf 80%);
+  font: 500 1.2em/1.2 'Roboto', sans-serif;
+}
+.htmleaf-container{
+	margin: 0 auto;
+	text-align: center;
+}
+.htmleaf-header{
+	padding: 1em 190px 1em;
+	letter-spacing: -1px;
+	text-align: center;
+}
+.htmleaf-header h1 {
+	font-weight: 600;
+	font-size: 2em;
+	line-height: 1;
+	margin-bottom: 0;
+}
+
+#note{
+	display:block;
+	margin: 0 auto;
+	width: 320px;
+    padding: 10px 8px;
+    border: none;
+    box-shadow: 1px 1px 2px rgba(0,0,0,.2);
+}
+#save{
+	display:block;
+	margin: 5px auto;
+	padding: 9px 16px;
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    background-color: #428bca;
+    border-radius:10px;
+}
+#save:hover {
+    background-color: #369;
+}
+.container {
+    overflow:hidden;
+}
+.block {
+	float: left;
+	border: 1px solid #aaa;
+	border-radius:8px;
+	background: #faa;
+	height: 100px;
+	font-family: sans-serif;
+	font-color:#fff;
+    margin-left: 20px;
+    padding: 5px;
+}
+.block:hover{
+	box-shadow:0 4px 8px #aaa;
+}
+.close {
+	float: right;
+	font-weight: bold;
+	opacity: .2;
+	cursor: pointer;
+}
+.close:hover {
+	opacity: 1;
+}
+</style>
+</head>
+<body>
+	<div class="htmleaf-container">
+		<header class="htmleaf-header">
+			<h1>备忘录</h1>		
+		</header>
+	</div>
+	
+	<input type="text" name="note" placeholder="输入你想保存的笔记" id="note" required>
+    <button id="save">保存</button>
+  
+  	<div class="container">
+		<div>
+			<span></span>
+		</div>
+	</div>
+    <script src="js/jquery-1.11.3.js"></script>
+  <script>
+    //为id为add-block的button添加单击事件
+  
+    $("#save").click(function(){
+  	  var $str=$("#note").val();
+      //创建一个div:同第一个div保存在$div中
+      var $div=$(`<div class="block">
+			    <span class="close">&times;</span>
+		  </div>`);
+     
+      //在0~255之间随机生成三个整数分别保存在r,g,b中
+      var r=Math.floor(Math.random()*256),
+          g=Math.floor(Math.random()*256),
+          b=Math.floor(Math.random()*256);
+      $div.css(//设置$div的背景为rgb(r,g,b)
+        "background",`rgb(${r},${g},${b})`);
+      //获取当前元素的下一个兄弟保存在$container
+     $div.append($str);
+     $(this).next().append($div);//将$div追加到$container末尾
+     $("#note").val("");
+    });
+    $(".container").delegate(".block>.close","click",function(){
+    	$(this).parent().remove();
+    });
+
+  </script>
+</body>
+</html>
